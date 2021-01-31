@@ -21,6 +21,26 @@ function TinderApi () {
     }
   };
 
+  this.deleteUser = async (userId) => {
+    try {
+      const response = await fetch(`${TINDER_BASE_PATH}/users/${userId}`, {
+        method: 'DELETE',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log('Something went wrong!', error);
+    }
+  }
+
   this.getReceivedMessagesFromUser = async (userId) => {
     try {
       const response = await fetch(`${TINDER_BASE_PATH}/users/${userId}/messages?type=received`);
@@ -96,7 +116,7 @@ function TinderApi () {
       return data;
     } catch (error) {
       console.log('Something went wrong', error);
-    }
+    };
   };
 
   this.getMatches = async () => {
@@ -106,7 +126,7 @@ function TinderApi () {
       return data;
     } catch (error) {
       console.log('Something went wrong', error);
-    }
+    };
   }
 
   this.getMatchesForUser = async (userId) => {
@@ -116,7 +136,7 @@ function TinderApi () {
       return data;
     } catch (error) {
       console.log('Something went wrong!', error);
-    }
+    };
   };
 
   this.addMatch = async (userId, friendId, rating) => {
@@ -125,7 +145,7 @@ function TinderApi () {
         userId,
         friendId,
         rating,
-      }
+      };
 
       const response = await fetch(`${TINDER_BASE_PATH}/matches`, {
         method: 'POST',
@@ -144,14 +164,14 @@ function TinderApi () {
       return data;
     } catch (error) {
       console.log('Oh no! Cupid missed! Could not send your match!', error);
-    }
+    };
   };
 
   this.updateMatch = async (userId, friendId, rating) => {
     try {
       const body = {
         rating,
-      }
+      };
 
       const response = await fetch(`${TINDER_BASE_PATH}/matches/${userId}/${friendId}`, {
         method: 'PUT',
@@ -170,7 +190,7 @@ function TinderApi () {
       return data;
     } catch (error) {
       console.log('Oh no! Cupid missed! Could not update your match!', error);
-    }
+    };
   };
 
   this.deleteMatch = async (userId, friendId) => {
@@ -191,6 +211,6 @@ function TinderApi () {
       return data;
     } catch (error) {
       console.log('Oh no! Could not remove your rating!', error);
-    }
-  }
-}
+    };
+  };
+};
