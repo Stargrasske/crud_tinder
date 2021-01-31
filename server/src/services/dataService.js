@@ -3,9 +3,16 @@ Import packages
 */
 const fs = require('fs');
 const path = require('path');
+/* const fetch = require('isomorphic-fetch');
+const faker = require('faker'); */
 const {
   v4: uuidv4,
 } = require('uuid');
+
+/*
+Variables
+*/
+// const RANDOM_USER_ME_API = 'https://randomuser.me/api/?results=';
 
 /*
 Import custom packages
@@ -32,6 +39,118 @@ const readDataFromUsersFile = () => {
   });
   const users = JSON.parse(data);
   return users;
+};
+
+/*
+Create users
+*/
+/* const createUsers = async (amount) => {
+  const url = `${RANDOM_USER_ME_API}${amount}`;
+  const response = await fetch(url, {});
+  const json = await response.json();
+  const randomUsers = json.results;
+
+  const users = randomUsers.map(randomUser => ({
+    id: randomUser.login.uuid,
+    username: randomUser.login.username,
+    password: 'w84pgm2beGr8',
+    picture: randomUser.picture,
+    firstName: randomUser.name.first,
+    lastName: randomUser.name.last,
+    gender: randomUser.gender,
+    dayOfBirth: new Date(randomUser.dob.date).getTime(),
+    createdAt: new Date(randomUser.registered.date).getTime(),
+    nationality: randomUser.nat,
+    cell: randomUser.cell,
+    location: {
+      city: randomUser.city,
+      country: randomUser.country,
+    },
+  }));
+  return Promise.resolve(users);
+};
+
+const seed = async () => {
+  const users = await createUsers(50); // Amount
+  fs.writeFileSync(filePathUsers, JSON.stringify(users, null, 2));
+}; */
+
+// seed();
+
+
+/*
+Create a new user
+*/
+const createUser = (user) => {
+  try {
+    // Read the users.json file
+    const users = readDataFromUsersFile();
+    console.log(user);
+    const userToCreate = {
+      ...user,
+    };
+    userToCreate.id = uuidv4();
+    userToCreate.createdAt = Date.now();
+    users.push(userToCreate);
+    // Write user array to users.json
+    fs.writeFileSync(filePathUsers, JSON.stringify(users, null, 2));
+    return userToCreate;
+  } catch (error) {
+    throw new HTTPError('Can\'t create user!', 500);
+  }
+};
+
+/*
+Update a specific user
+*/
+const updateUser = (userId, user) => {
+  try {
+    const userToUpdate = {
+      ...user,
+    };
+    userToUpdate.modifiedAt = Date.now();
+    // Read the users.json file
+    const users = readDataFromUsersFile();
+    // Find the index of the user we want to update
+    const findIndex = users.findIndex(u => u.id === userId);
+    if (findIndex === -1) {
+      throw new HTTPError(`Can't find the user with id ${userId}!`, 404);
+    }
+    users[findIndex] = {
+      ...users[findIndex],
+      ...userToUpdate,
+    };
+    // Write the users away to the users.json file
+    fs.writeFileSync(filePathUsers, JSON.stringify(users, null, 2));
+    // Send response
+    return users[findIndex];
+  } catch (error) {
+    throw new HTTPError('Can\'t update user!', 500);
+  }
+};
+
+/*
+Delete a specific user
+*/
+const deleteUser = (userId) => {
+  try {
+    // Read the users.json file
+    const users = readDataFromUsersFile();
+    // Find the index of the user we want to remove
+    const findIndex = users.findIndex(m => m.id === userId);
+    if (findIndex === -1) {
+      throw new HTTPError(`Can't find the user with id ${userId}!`, 404);
+    }
+    users.splice(findIndex, 1);
+    // Write the users array to the users.json file
+    fs.writeFileSync(filePathUsers, JSON.stringify(users, null, 2));
+    // Send response
+    return {
+      user: `Successfully deleted the user with id ${userId}!`,
+    };
+  } catch (error) {
+    throw error;
+  }
 };
 
 /*
@@ -394,6 +513,9 @@ const deleteMatch = (userId, friendId) => {
 module.exports = {
   getUsers,
   getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
   getMessages,
   getMessageById,
   getMessagesFromUserById,

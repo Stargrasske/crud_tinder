@@ -79,7 +79,9 @@ Update a specific message
 */
 const updateMessage = (req, res, next) => {
   try {
+    // Get the body from the response
     const message = req.body;
+    // Get the message id from the parameters
     const { messageId } = req.params;
     const updatedMessage = dataService.updateMessage(messageId, message);
     res.status(200).json(updatedMessage);
