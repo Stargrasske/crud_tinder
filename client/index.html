@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tinder | Programming 2: Front-End Advanced | Associate Degree in Computer Programming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="./static/css/main.css" crossorigin="anonymous" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./static/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./static/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./static/favicons/favicon-16x16.png">
+    <link rel="manifest" href="./static/favicons/site.webmanifest">
+    <link rel="mask-icon" href="./static/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./static/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="./static/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+    <header class="header">
+        <brand class="logo">
+            <img src="./static/img/tinder.png" alt="Tinder">
+            <h1>tinder</h1>
+        </brand>
+    </header>
+
+    <main class="main">
+        <section class="users">
+            <h3 class="section__heading"><span class="title">Users</span></h3>
+            <ul class="users__list"></ul>
+        </section>
+
+        <section class="messages">
+            <div class="messages__inbox">
+                <h3 class="section__heading"><span class="title">Inbox</span></h3>
+                <ul class="inbox__list"></ul>
+            </div>
+
+            <div class="messages__outbox">
+                <h3 class="section__heading"><span class="title">Outbox</span></h3>
+                <ul class="outbox__list"></ul>
+            </div>
+        </section>
+
+        <section class="messages__chat">
+            <h3 class="section__heading">
+                <span class="title">Chat</span><span class="friend__name"></span>
+                <button id="show-users" title="Send a message to a different user"><i class="fas fa-user-edit"></i></button></h3>
+            
+            <ul class="user__names"></ul>
+            
+            <ul class="chat__list"></ul>
+
+            <form class="create-msg">
+                <textarea id="msg__text" name="msg__text" placeholder="Send a message..."></textarea>
+
+                <input type="submit" value="Send">
+            </form>
+        </section>
+
+        <section class="matches">
+            <div class="matches__no-match">
+                <h3 class="section__heading"><span class="title">No match</span></h3>
+                <ul class="no-match__list"></ul>
+
+            </div>
+
+            <div class="matches__match">
+                <h3 class="section__heading"><span class="title">Match</span></h3>
+                <ul class="match__list"></ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="tt-c"></div>
+        <div class="tooltip"></div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous"></script>
+    <script src="./static/js/services.js"></script>
+    <script src="./static/js/main.js"></script>
+</body>
+
+</html>
