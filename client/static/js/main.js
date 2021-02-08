@@ -312,6 +312,8 @@
         })
       });
 
+      // HERE BE DRAGONS !!! 
+      // Refactor and dissect
       const matches = [...matchesBoth, ...matchesOut, ...matchesIn];
       let html = matchesBoth.map((m) => {
         const u = this.users.find(u => u.id === m.matchOut.friendId);
@@ -392,6 +394,10 @@
       this.registerListenersForMatches();
       this.updateNoMatchesFromUser(userId, matches);
     },
+
+    /*
+    Register listeners for the matches
+    */
     registerListenersForMatches() {
       const ratings = document.querySelectorAll('.ratings');
       const removeRatings = document.querySelectorAll('.match__rating.left > .fa-share');
